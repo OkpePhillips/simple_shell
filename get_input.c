@@ -37,6 +37,10 @@ void get_input(char *user_input)
 			user_input[i] = '\0';
 			break;
 		}
+		else if ((_isspace(c) && i == 0) || (_isspace(c) && _isspace(user_input[i - 1])))
+		{
+			continue;
+		}
 		else
 		{
 			user_input[i] = c;

@@ -20,5 +20,6 @@ extern char **environ;
 
 void get_input(char *user_input);
 void handle_signal(int identifier);
+int _isspace(int c);
 
 #endif

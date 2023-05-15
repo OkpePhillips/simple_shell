@@ -14,6 +14,7 @@ int main(void)
 		char user_input[MAX_USER_INPUT_LENGTH];
 
 		get_input(user_input);
+		printf("Input without leading spaces is %s \n", user_input);
 	}
 	return (0);
 }

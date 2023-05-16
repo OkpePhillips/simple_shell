@@ -14,7 +14,10 @@ int main(void)
 		char user_input[MAX_USER_INPUT_LENGTH];
 
 		get_input(user_input);
-		printf("Input without leading spaces is %s \n", user_input);
+		if (is_built_in_command(user_input) == 1)
+			handle_builtin(user_input);
+		else
+			printf("The input %s is not a builtin \n", user_input);
 	}
 	return (0);
 }

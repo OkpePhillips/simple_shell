@@ -21,5 +21,10 @@ extern char **environ;
 void get_input(char *user_input);
 void handle_signal(int identifier);
 int _isspace(int c);
+char *find_path(char *user_input);
+int is_built_in_command(char *user_input);
+int builtin_env(void);
+int builtin_exit(void);
+int handle_builtin(char *user_input);
 
 #endif

@@ -30,7 +30,7 @@ int handle_builtin(char *user_input);
 void execute_command(char *user_input);
 void execute_command_with_args(char *user_input);
 void execute_command_without_args(char *user_input);
-void print_error(const char *program_name, const char *user_input, 
-                        const char *error_message);
+void print_error(const char *program_name, const char *user_input,
+			const char *error_message);
 
 #endif

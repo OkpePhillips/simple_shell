@@ -48,6 +48,13 @@ void execute_command_with_args(char *user_input)
 
 		strtok(user_input, " \n");
 		full_path = find_path(user_input);
+		if (full_path == NULL)
+		{
+			write(STDERR_FILENO, "./hsh: 1: ", 10);
+			write(STDERR_FILENO, user_input, strlen(user_input));
+			write(STDERR_FILENO, ": not found\n", 13);
+			exit(EXIT_FAILURE);
+		}
 		args[0] = full_path;
 		strcpy(arg_str, user_input + strlen(user_input) + 1);
 		token = strtok(arg_str, " \n");
@@ -57,11 +64,7 @@ void execute_command_with_args(char *user_input)
 			token = strtok(NULL, " \n");
 		}
 		args[num_args + 1] = NULL;
-		if (execve(args[0], args, environ) == -1)
-		{
-			write(STDERR_FILENO, args[0], strlen(args[0]));
-			write(STDERR_FILENO, ": Could not execute command\n", 28);
-		}
+		execve(args[0], args, environ);
 	}
 	else
 	{
@@ -95,16 +98,16 @@ void execute_command_without_args(char *user_input)
 		full_path = find_path(user_input);
 		if (full_path == NULL)
 		{
+			write(STDERR_FILENO, "./hsh: 1: ", 10);
 			write(STDERR_FILENO, user_input, strlen(user_input));
-			write(STDERR_FILENO, ": Command not found\n", 20);
+			write(STDERR_FILENO, ": not found\n", 13);
 			exit(EXIT_FAILURE);
 		}
 		args[0] = full_path;
 		args[1] = NULL;
 		if (execve(args[0], args, environ) == -1)
 		{
-			write(STDERR_FILENO, args[0], strlen(args[0]));
-			write(STDERR_FILENO, ": Could not execute the command\n", 28);
+			perror("execve");
 			exit(EXIT_FAILURE);
 		}
 	}

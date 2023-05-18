@@ -19,13 +19,14 @@ int builtin_exit(void)
 
 int builtin_env(void)
 {
-	char *env_var;
+	char **env_var;
 
-	while ((env_var = *environ++) != NULL)
+	for (env_var = environ; *env_var != NULL; env_var++)
 	{
-		write(STDOUT_FILENO, env_var, strlen(env_var));
-		write(STDOUT_FILENO, "\n", 3);
+		write(STDOUT_FILENO, *env_var, strlen(*env_var));
+		write(STDOUT_FILENO, "\n", 1);
 	}
+	write(STDOUT_FILENO, "\n", 1);
 	return (0);
 }
 

@@ -13,32 +13,41 @@ char *find_path(char *user_input)
 	char *directory;
 	char *command;
 	char *result;
+	char *trimmedcommand;
 
-	if (access(user_input, X_OK) == 0)
+	command = strtok(user_input, ";");
+	while (command != NULL)
 	{
-		result = strdup(user_input);
-		if (result == NULL)
+		trimmedcommand = strtrim(command);
+		if (access(trimmedcommand, X_OK) == 0)
 		{
-			return (NULL);
-		}
-		return (result);
-	}
-	path = getenv("PATH");
-	result = malloc(MAX_USER_INPUT_LENGTH);
-	if (path == NULL)
-		return (NULL);
-	directory = strtok(path, ":");
-	while (directory != NULL)
-	{
-		command = strcpy(result, directory);
-		command = strcat(command, "/");
-		command = strcat(command, user_input);
-		if (access(command, X_OK) == 0)
-		{
+			result = strdup(trimmedcommand);
+			if (result == NULL)
+			{
+				return (NULL);
+			}
 			return (result);
 		}
-		directory = strtok(NULL, ":");
+		path = getenv("PATH");
+		result = malloc(MAX_USER_INPUT_LENGTH);
+		if (path == NULL)
+			return (NULL);
+		directory = strtok(path, ":");
+		while (directory != NULL)
+		{
+			command = strcpy(result, directory);
+			command = strcat(command, "/");
+			command = strcat(command, trimmedcommand);
+			if (access(command, X_OK) == 0)
+			{
+				return (result);
+			}
+			directory = strtok(NULL, ":");
+			free(result);
+			result = malloc (MAX_USER_INPUT_LENGTH);
+		}
+		free(result);
+		command = strtok(NULL, ";");
 	}
-	free(result);
 	return (NULL);
 }

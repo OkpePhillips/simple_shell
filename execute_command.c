@@ -10,16 +10,25 @@ void execute_command(char *user_input)
 {
 	char input_copy[MAX_USER_INPUT_LENGTH];
 	char *space_pos;
+	char *command;
 
 	strcpy(input_copy, user_input);
-	space_pos = strchr(input_copy, ' ');
-	if (space_pos != NULL)
+	command = strtok(input_copy, ";");
+	while (command != NULL)
 	{
-		execute_command_with_args(input_copy);
-	}
-	else
-	{
-		execute_command_without_args(input_copy);
+		if (strlen(command) > 0)
+		{
+			space_pos = strchr(command, ' ');
+			if (space_pos != NULL)
+			{
+				execute_command_with_args(command);
+			}
+			else
+			{
+				execute_command_without_args(command);
+			}
+		}
+		command = strtok(NULL, ";");
 	}
 }
 
@@ -30,7 +39,7 @@ void execute_command(char *user_input)
  * Return: Nothing.
  */
 
-void execute_command_with_args(char *user_input)
+void execute_command_with_args(char *command)
 {
 	pid_t pid = fork();
 
@@ -46,17 +55,17 @@ void execute_command_with_args(char *user_input)
 		int num_args = 0;
 		char *token;
 
-		strtok(user_input, " \n");
-		full_path = find_path(user_input);
+		strtok(command, " \n");
+		full_path = find_path(command);
 		if (full_path == NULL)
 		{
 			write(STDERR_FILENO, "./hsh: 1: ", 10);
-			write(STDERR_FILENO, user_input, strlen(user_input));
+			write(STDERR_FILENO, command, strlen(command));
 			write(STDERR_FILENO, ": not found\n", 13);
 			exit(EXIT_FAILURE);
 		}
 		args[0] = full_path;
-		strcpy(arg_str, user_input + strlen(user_input) + 1);
+		strcpy(arg_str, command + strlen(command) + 1);
 		token = strtok(arg_str, " \n");
 		while (token != NULL && num_args < MAX_ARGUMENTS)
 		{
@@ -81,7 +90,7 @@ void execute_command_with_args(char *user_input)
  * Return: Nothing.
  */
 
-void execute_command_without_args(char *user_input)
+void execute_command_without_args(char *command)
 {
 	pid_t pid = fork();
 
@@ -95,11 +104,11 @@ void execute_command_without_args(char *user_input)
 		char *args[MAX_ARGUMENTS + 1];
 		char *full_path;
 
-		full_path = find_path(user_input);
+		full_path = find_path(command);
 		if (full_path == NULL)
 		{
 			write(STDERR_FILENO, "./hsh: 1: ", 10);
-			write(STDERR_FILENO, user_input, strlen(user_input));
+			write(STDERR_FILENO, command, strlen(command));
 			write(STDERR_FILENO, ": not found\n", 13);
 			exit(EXIT_FAILURE);
 		}

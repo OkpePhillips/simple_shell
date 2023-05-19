@@ -11,3 +11,18 @@ int _isspace(int c)
 	return (c == ' ' || c == '\t' || c == '\n' || c == '\r' ||
 		c == '\f' || c == '\v');
 }
+
+/**
+ * strtrim - removes first whitespace
+ * @str: the input string
+ *
+ * Return: trimmed input
+ */
+char *strtrim(char *str)
+{
+	while (*str == ' ' || *str == '\t' || *str == '\n')
+	{
+		str++;
+	}
+	return (str);
+}

@@ -16,9 +16,9 @@ void execute_command(char *user_input)
 	command = strtok(input_copy, ";");
 	while (command != NULL)
 	{
-		if (strlen(command) > 0)
+		if (_strlen(command) > 0)
 		{
-			space_pos = strchr(command, ' ');
+			space_pos = _strchr(command, ' ');
 			if (space_pos != NULL)
 			{
 				execute_command_with_args(command);
@@ -60,12 +60,12 @@ void execute_command_with_args(char *command)
 		if (full_path == NULL)
 		{
 			write(STDERR_FILENO, "./hsh: 1: ", 10);
-			write(STDERR_FILENO, command, strlen(command));
+			write(STDERR_FILENO, command, _strlen(command));
 			write(STDERR_FILENO, ": not found\n", 13);
 			exit(EXIT_FAILURE);
 		}
 		args[0] = full_path;
-		strcpy(arg_str, command + strlen(command) + 1);
+		_strcpy(arg_str, command + _strlen(command) + 1);
 		token = strtok(arg_str, " \n");
 		while (token != NULL && num_args < MAX_ARGUMENTS)
 		{
@@ -108,7 +108,7 @@ void execute_command_without_args(char *command)
 		if (full_path == NULL)
 		{
 			write(STDERR_FILENO, "./hsh: 1: ", 10);
-			write(STDERR_FILENO, command, strlen(command));
+			write(STDERR_FILENO, command, _strlen(command));
 			write(STDERR_FILENO, ": not found\n", 13);
 			exit(EXIT_FAILURE);
 		}

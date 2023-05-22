@@ -21,21 +21,21 @@ char *find_path(char *user_input)
 		trimmedcommand = strtrim(command);
 		if (access(trimmedcommand, X_OK) == 0)
 		{
-			result = strdup(trimmedcommand);
+			result = _strdup(trimmedcommand);
 			if (result == NULL)
 				return (NULL);
 			return (result);
 		}
-		path = getenv("PATH");
+		path = _getenv("PATH");
 		result = malloc(MAX_USER_INPUT_LENGTH);
 		if (path == NULL)
 			return (NULL);
 		directory = strtok(path, ":");
 		while (directory != NULL)
 		{
-			command = strcpy(result, directory);
-			command = strcat(command, "/");
-			command = strcat(command, trimmedcommand);
+			command = _strcpy(result, directory);
+			command = _strcat(command, "/");
+			command = _strcat(command, trimmedcommand);
 			if (access(command, X_OK) == 0)
 			{
 				return (result);

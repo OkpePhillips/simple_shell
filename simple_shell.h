@@ -33,5 +33,12 @@ void execute_command_without_args(char *command);
 void print_error(const char *program_name, const char *user_input,
 			const char *error_message);
 char *strtrim(char *str);
+char *_getenv(char *pathname);
+int _strlen(char *str);
+char *_strcpy(char *dest, char *source);
+int _strcmp(const char *s1, const char *s2);
+char *_strchr(char *str, char c);
+char *_strdup(char *str);
+char *_strcat(char *dest, const char *src);
 
 #endif

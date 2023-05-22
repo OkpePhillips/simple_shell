@@ -23,7 +23,7 @@ int builtin_env(void)
 
 	for (env_var = environ; *env_var != NULL; env_var++)
 	{
-		write(STDOUT_FILENO, *env_var, strlen(*env_var));
+		write(STDOUT_FILENO, *env_var, _strlen(*env_var));
 		write(STDOUT_FILENO, "\n", 1);
 	}
 	write(STDOUT_FILENO, "\n", 1);
@@ -46,7 +46,7 @@ int handle_builtin(char *user_input)
 
 	for (i = 0; builtins[i] != NULL; ++i)
 	{
-		if (strcmp(user_input, builtins[i]) == 0)
+		if (_strcmp(user_input, builtins[i]) == 0)
 		{
 			return ((*builtin_funcs[i])());
 		}
@@ -69,7 +69,7 @@ int is_built_in_command(char *user_input)
 	num_built_in_commands = 3;
 	for (i = 0; i < num_built_in_commands - 1; i++)
 	{
-		if (strcmp(user_input, builtins[i]) == 0)
+		if (_strcmp(user_input, builtins[i]) == 0)
 		{
 			return (1);
 		}

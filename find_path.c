@@ -23,9 +23,7 @@ char *find_path(char *user_input)
 		{
 			result = strdup(trimmedcommand);
 			if (result == NULL)
-			{
 				return (NULL);
-			}
 			return (result);
 		}
 		path = getenv("PATH");
@@ -44,7 +42,7 @@ char *find_path(char *user_input)
 			}
 			directory = strtok(NULL, ":");
 			free(result);
-			result = malloc (MAX_USER_INPUT_LENGTH);
+			result = malloc(MAX_USER_INPUT_LENGTH);
 		}
 		free(result);
 		command = strtok(NULL, ";");

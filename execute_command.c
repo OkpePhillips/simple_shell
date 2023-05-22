@@ -34,7 +34,7 @@ void execute_command(char *user_input)
 
 /**
  *execute_command_with_args - executes inputs without arguments
- *@user_input: the input supplied
+ *@command: the input supplied
  *
  * Return: Nothing.
  */
@@ -85,7 +85,7 @@ void execute_command_with_args(char *command)
 
 /**
  *execute_command_without_args - executes inputs that have no arguments
- *@user_input: the input supplied
+ *@command: the input supplied
  *
  * Return: Nothing.
  */

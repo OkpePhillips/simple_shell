@@ -34,11 +34,17 @@ void print_error(const char *program_name, const char *user_input,
 			const char *error_message);
 char *strtrim(char *str);
 char *_getenv(char *pathname);
-int _strlen(char *str);
+int _strlen(const char *str);
 char *_strcpy(char *dest, char *source);
 int _strcmp(const char *s1, const char *s2);
 char *_strchr(char *str, char c);
 char *_strdup(char *str);
 char *_strcat(char *dest, const char *src);
+int builtin_cd(char *user_input);
+void set_old_working_directory(void);
+int change_directory_to_path(char *path);
+int change_directory_to_previous(void);
+int change_directory_to_home(void);
+int _strncmp(const char *s1, const char *s2, size_t n);
 
 #endif

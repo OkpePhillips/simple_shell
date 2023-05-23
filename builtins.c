@@ -40,15 +40,18 @@ int builtin_env(void)
 int handle_builtin(char *user_input)
 {
 	int i;
-	const char * const builtins[] = {"exit", "env", NULL};
+	const char * const builtins[] = {"exit", "env", "cd", NULL};
 
 	int (* const builtin_funcs[])(void) = {&builtin_exit, &builtin_env, NULL};
 
 	for (i = 0; builtins[i] != NULL; ++i)
 	{
-		if (_strcmp(user_input, builtins[i]) == 0)
+		if (_strncmp(user_input, builtins[i], _strlen(builtins[i])) == 0)
 		{
-			return ((*builtin_funcs[i])());
+			if (builtin_funcs[i] != NULL)
+				return ((*builtin_funcs[i])());
+			else if (_strcmp(builtins[i], "cd") == 0)
+				return (builtin_cd(user_input));
 		}
 	}
 	return (-1);
@@ -64,12 +67,12 @@ int is_built_in_command(char *user_input)
 {
 	int num_built_in_commands;
 	int i;
-	const char * const builtins[3] = {"exit", "env", NULL};
+	const char * const builtins[4] = {"exit", "env", "cd", NULL};
 
-	num_built_in_commands = 3;
+	num_built_in_commands = 4;
 	for (i = 0; i < num_built_in_commands - 1; i++)
 	{
-		if (_strcmp(user_input, builtins[i]) == 0)
+		if (_strncmp(user_input, builtins[i], _strlen(builtins[i])) == 0)
 		{
 			return (1);
 		}

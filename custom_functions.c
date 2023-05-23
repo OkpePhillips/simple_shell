@@ -77,3 +77,27 @@ char *_strcat(char *dest, const char *src)
 	*ptr = '\0';
 	return (dest);
 }
+
+/**
+ * _strncmp - checks if the first n characters of two strings are equal
+ * @s1: first string
+ * @s2: second string
+ * @n: the length of characters
+ *
+ * Return: 0 if the first n characters of the two strings are equal
+ * ------- -1 if str1 is less than str2;
+ * ------- 1 if str1 is greater than str2
+ */
+int _strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t i;
+
+	for (i = 0; i < n; ++i)
+	{
+		if (s1[i] != s2[i])
+			return ((int)(unsigned char)s1[i] - (int)(unsigned char)s2[i]);
+		else if (s1[i] == '\0')
+			return (0);
+	}
+	return (0);
+}
